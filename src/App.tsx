@@ -1,27 +1,21 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import React from "react";
+import { DesignProvider } from "./contexts/DesignContext";
+import { Header } from "./components/Header.tsx";
+import { AppRouter } from "./components/AppRouter.tsx";
+import { Toaster } from "sonner";
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <DesignProvider>
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="flex-1">
+          <AppRouter />
+        </main>
+        <Toaster position="top-right" />
+      </div>
+    </DesignProvider>
+  );
+}
 
 export default App;
